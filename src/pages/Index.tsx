@@ -173,7 +173,7 @@ const Index = () => {
               </span>
               <div>
                 <p className="font-semibold text-lg">Стоимость тура — 100 000 ₽</p>
-                <p className="text-sm text-muted-foreground">Включено: микроавтобус из Москвы, комфортабельная гостиница и 2 завтрака</p>
+                <p className="text-sm text-muted-foreground">Включено: микроавтобус из Москвы и комфортабельная гостиница</p>
               </div>
             </div>
             <div className="space-y-5">
@@ -253,7 +253,7 @@ const Index = () => {
                 ['MapPin', 'Отправление от станции метро в центре Москвы'],
                 ['Clock', 'Сбор группы за 30 минут до выезда'],
                 ['Backpack', 'Удобная одежда и обувь, головной убор для женщин'],
-                ['Utensils', '2 завтрака и проживание в комфортабельной гостинице включены в стоимость'],
+                ['Hotel', 'Проживание в комфортабельной гостинице включено в стоимость'],
               ].map(([icon, text]) => (
                 <li key={text} className="flex gap-3 text-muted-foreground">
                   <Icon name={icon} size={20} className="text-accent shrink-0 mt-0.5" />
