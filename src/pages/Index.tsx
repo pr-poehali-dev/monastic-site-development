@@ -164,13 +164,22 @@ const Index = () => {
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">О паломничестве</p>
             <h2 className="font-display text-4xl md:text-5xl mb-6 text-balance">Не туризм, а путь к душе</h2>
-            <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
+            <p className="text-muted-foreground leading-relaxed mb-6 text-lg">
               Паломничество — это особое путешествие, где главное не маршрут, а внутреннее преображение. За пять дней мы посетим четыре великие святыни с заботой о духовной и бытовой стороне поездки.
             </p>
+            <div className="flex items-center gap-4 mb-8 p-5 rounded-xl bg-accent/10 border border-accent/20">
+              <span className="grid place-items-center w-12 h-12 rounded-full bg-accent text-accent-foreground shrink-0">
+                <Icon name="BadgeRussianRuble" size={22} />
+              </span>
+              <div>
+                <p className="font-semibold text-lg">Стоимость тура — 100 000 ₽</p>
+                <p className="text-sm text-muted-foreground">Включено: комфортабельный микроавтобус из Москвы и 2 завтрака</p>
+              </div>
+            </div>
             <div className="space-y-5">
               {[
                 { icon: 'BookOpen', t: 'Духовное сопровождение', d: 'Беседы, молебны и участие в богослужениях вместе с группой.' },
-                { icon: 'Bus', t: 'Комфортный транспорт', d: 'Удобные автобусы и переправы, всё организовано заранее.' },
+                { icon: 'Bus', t: 'Комфортабельный микроавтобус', d: 'Выезд из Москвы на комфортабельном микроавтобусе, все переправы организованы заранее.' },
                 { icon: 'HeartHandshake', t: 'Забота о каждом', d: 'Опытные сопровождающие рядом на всём пути следования.' },
               ].map((f) => (
                 <div key={f.t} className="flex gap-4">
@@ -244,7 +253,7 @@ const Index = () => {
                 ['MapPin', 'Отправление от станции метро в центре Москвы'],
                 ['Clock', 'Сбор группы за 30 минут до выезда'],
                 ['Backpack', 'Удобная одежда и обувь, головной убор для женщин'],
-                ['Utensils', 'Питание и проживание включены в стоимость'],
+                ['Utensils', '2 завтрака включены в стоимость поездки'],
               ].map(([icon, text]) => (
                 <li key={text} className="flex gap-3 text-muted-foreground">
                   <Icon name={icon} size={20} className="text-accent shrink-0 mt-0.5" />
