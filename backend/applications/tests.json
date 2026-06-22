@@ -1,0 +1,5 @@
+{"tests": [
+  {"name": "Get applications list", "method": "GET", "path": "/", "expectedStatus": 200, "expectedBody": {"items": "array"}, "bodyMatcher": "partial"},
+  {"name": "Create application", "method": "POST", "path": "/", "body": {"name": "Тест Паломник", "phone": "+79990000000", "route": "Паломничество по 4 святыням", "comment": "Тестовая заявка"}, "expectedStatus": 200, "expectedBody": {"success": true}, "bodyMatcher": "partial"},
+  {"name": "Reject without phone", "method": "POST", "path": "/", "body": {"name": "Без телефона"}, "expectedStatus": 400, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"}
+]}

@@ -1,67 +1,63 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import { APPLICATIONS_URL } from '@/lib/api';
 
 const VALAAM = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/761cb0a6-5cc4-47d4-834a-4b149ae91476.jpg';
 const SOLOVKI = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/b871d7c9-74b7-4e99-ab2f-574aa7f5035f.jpg';
 
+const ROUTE_NAME = 'Паломничество по святыням Русского Севера — 5 дней';
+
 const nav = [
-  { id: 'routes', label: 'Маршруты' },
+  { id: 'route', label: 'Маршрут' },
   { id: 'about', label: 'О паломничестве' },
-  { id: 'calendar', label: 'Расписание' },
+  { id: 'program', label: 'Программа' },
   { id: 'gallery', label: 'Галерея' },
   { id: 'info', label: 'Информация' },
   { id: 'contacts', label: 'Контакты' },
 ];
 
-const routes = [
-  {
-    name: 'Валаам',
-    sub: 'Спасо-Преображенский монастырь',
-    days: '2 дня',
-    desc: 'Северный Афон на Ладожском озере. Скиты, чудотворные источники и древние напевы валаамского распева.',
-    icon: 'Church',
-    img: VALAAM,
-  },
-  {
-    name: 'Лодейное Поле',
-    sub: 'Александро-Свирский монастырь',
-    days: '1 день',
-    desc: 'Обитель преподобного Александра Свирского — единственного, кому, по преданию, явилась Святая Троица.',
-    icon: 'Cross',
-    img: null,
-  },
-  {
-    name: 'Соловецкие острова',
-    sub: 'Спасо-Преображенский монастырь',
-    days: '4 дня',
-    desc: 'Древняя крепость на Белом море. Молитва, тишина и суровая красота Русского Севера.',
-    icon: 'Anchor',
-    img: SOLOVKI,
-  },
-  {
-    name: 'Тихвин',
-    sub: 'Тихвинский Богородичный монастырь',
-    days: '1 день',
-    desc: 'Дом чудотворной Тихвинской иконы Божией Матери — одной из самых почитаемых святынь России.',
-    icon: 'Sparkles',
-    img: null,
-  },
-];
-
-const schedule = [
-  { date: '5 июля', route: 'Валаам', days: '2 дня', seats: 'Свободно 8 мест' },
-  { date: '12 июля', route: 'Александро-Свирский монастырь', days: '1 день', seats: 'Свободно 14 мест' },
-  { date: '19–22 июля', route: 'Соловецкие острова', days: '4 дня', seats: 'Свободно 5 мест' },
-  { date: '26 июля', route: 'Тихвин', days: '1 день', seats: 'Свободно 20 мест' },
-  { date: '2 августа', route: 'Валаам', days: '2 дня', seats: 'Свободно 11 мест' },
+const days = [
+  { day: 'День 1', icon: 'Church', title: 'Валаам', sub: 'Спасо-Преображенский монастырь', desc: 'Выезд из Москвы. Северный Афон на Ладожском озере: скиты, чудотворные источники и валаамский распев.' },
+  { day: 'День 2', icon: 'Cross', title: 'Лодейное Поле', sub: 'Александро-Свирский монастырь', desc: 'Обитель преподобного Александра Свирского — единственного, кому, по преданию, явилась Святая Троица.' },
+  { day: 'День 3–4', icon: 'Anchor', title: 'Соловецкие острова', sub: 'Спасо-Преображенский монастырь', desc: 'Древняя крепость на Белом море. Молитва, тишина и суровая красота Русского Севера.' },
+  { day: 'День 5', icon: 'Sparkles', title: 'Тихвин', sub: 'Тихвинский Богородичный монастырь', desc: 'Дом чудотворной Тихвинской иконы Божией Матери. Возвращение в Москву.' },
 ];
 
 const Index = () => {
+  const { toast } = useToast();
   const [menu, setMenu] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', comment: '' });
+
   const go = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMenu(false);
+  };
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.phone.trim()) {
+      toast({ title: 'Заполните имя и телефон', variant: 'destructive' });
+      return;
+    }
+    setSending(true);
+    try {
+      const res = await fetch(APPLICATIONS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, route: ROUTE_NAME }),
+      });
+      if (!res.ok) throw new Error();
+      toast({ title: 'Заявка отправлена!', description: 'Мы свяжемся с вами в ближайшее время.' });
+      setForm({ name: '', phone: '', comment: '' });
+    } catch {
+      toast({ title: 'Не удалось отправить заявку', description: 'Попробуйте ещё раз позже.', variant: 'destructive' });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -108,59 +104,48 @@ const Index = () => {
         <div className="relative container">
           <div className="max-w-2xl text-background animate-fade-up">
             <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] mb-6 text-background/80">
-              <span className="w-10 h-px bg-background/60" /> Паломнические поездки из Москвы
+              <span className="w-10 h-px bg-background/60" /> 5-дневное паломничество из Москвы
             </p>
             <h1 className="font-display text-5xl md:text-7xl leading-[1.05] mb-6 text-balance">
-              Дорога к святыням Русского Севера
+              Путь к четырём святыням Русского Севера
             </h1>
             <p className="text-lg md:text-xl text-background/85 mb-9 max-w-xl">
-              Валаам, Александро-Свирский монастырь, Соловки и Тихвин — путешествия души с молитвой, тишиной и опытным сопровождением.
+              Единое паломничество длиною в 5 дней: Валаам, Александро-Свирский монастырь, Соловки и Тихвин — с молитвой, тишиной и опытным сопровождением.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => go('routes')} className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                Выбрать маршрут
+              <Button size="lg" onClick={() => go('booking')} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                Записаться на поездку
               </Button>
-              <Button size="lg" variant="outline" onClick={() => go('calendar')} className="border-background/60 text-background bg-transparent hover:bg-background/10 hover:text-background">
-                <Icon name="CalendarDays" size={18} className="mr-2" /> Расписание выездов
+              <Button size="lg" variant="outline" onClick={() => go('program')} className="border-background/60 text-background bg-transparent hover:bg-background/10 hover:text-background">
+                <Icon name="CalendarDays" size={18} className="mr-2" /> Программа по дням
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Routes */}
-      <section id="routes" className="py-24 bg-ornament">
+      {/* Route overview */}
+      <section id="route" className="py-24 bg-ornament">
         <div className="container">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">Святые места</p>
-            <h2 className="font-display text-4xl md:text-5xl mb-4">Четыре паломнических маршрута</h2>
+            <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">Маршрут</p>
+            <h2 className="font-display text-4xl md:text-5xl mb-4">Одно паломничество — четыре святыни</h2>
             <div className="h-px w-24 gold-line mx-auto" />
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {routes.map((r) => (
-              <article key={r.name} className="group rounded-2xl overflow-hidden bg-card border border-border shadow-sm hover:shadow-xl transition-all duration-500">
-                <div className="relative h-56 overflow-hidden bg-secondary">
-                  {r.img ? (
-                    <img src={r.img} alt={r.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  ) : (
-                    <div className="w-full h-full grid place-items-center bg-gradient-to-br from-primary/15 to-accent/15">
-                      <Icon name={r.icon} size={64} className="text-primary/50" />
-                    </div>
-                  )}
-                  <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs bg-background/90 text-foreground">{r.days}</span>
-                </div>
-                <div className="p-7">
-                  <div className="flex items-center gap-2.5 mb-2">
-                    <Icon name={r.icon} size={20} className="text-accent" />
-                    <h3 className="font-display text-2xl">{r.name}</h3>
-                  </div>
-                  <p className="text-sm text-primary mb-3">{r.sub}</p>
-                  <p className="text-muted-foreground leading-relaxed mb-5">{r.desc}</p>
-                  <button onClick={() => go('booking')} className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all">
-                    Записаться на поездку <Icon name="ArrowRight" size={16} />
-                  </button>
-                </div>
-              </article>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              ['Church', 'Валаам', '2 дня'],
+              ['Cross', 'Александро-Свирский', '1 день'],
+              ['Anchor', 'Соловки', '2 дня'],
+              ['Sparkles', 'Тихвин', '1 день'],
+            ].map(([icon, name, dur]) => (
+              <div key={name} className="text-center p-7 rounded-2xl bg-card border border-border shadow-sm">
+                <span className="inline-grid place-items-center w-14 h-14 rounded-full bg-accent/10 text-accent mb-4">
+                  <Icon name={icon} size={26} />
+                </span>
+                <h3 className="font-display text-2xl mb-1">{name}</h3>
+                <p className="text-sm text-muted-foreground">{dur}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -172,15 +157,15 @@ const Index = () => {
           <div className="relative">
             <img src={SOLOVKI} alt="Соловки" className="rounded-2xl w-full object-cover aspect-[4/5] shadow-lg" />
             <div className="absolute -bottom-6 -right-6 hidden md:block bg-accent text-accent-foreground p-6 rounded-2xl shadow-xl">
-              <p className="font-display text-4xl">15 лет</p>
-              <p className="text-sm opacity-90">сопровождаем паломников</p>
+              <p className="font-display text-4xl">5 дней</p>
+              <p className="text-sm opacity-90">единого пути</p>
             </div>
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">О паломничестве</p>
             <h2 className="font-display text-4xl md:text-5xl mb-6 text-balance">Не туризм, а путь к душе</h2>
             <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
-              Паломничество — это особое путешествие, где главное не маршрут, а внутреннее преображение. Мы сопровождаем группы с заботой о духовной и бытовой стороне поездки.
+              Паломничество — это особое путешествие, где главное не маршрут, а внутреннее преображение. За пять дней мы посетим четыре великие святыни с заботой о духовной и бытовой стороне поездки.
             </p>
             <div className="space-y-5">
               {[
@@ -203,29 +188,28 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Calendar */}
-      <section id="calendar" className="py-24">
+      {/* Program */}
+      <section id="program" className="py-24">
         <div className="container max-w-4xl">
           <div className="text-center mb-14">
-            <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">Календарь</p>
-            <h2 className="font-display text-4xl md:text-5xl mb-4">Расписание групповых выездов</h2>
+            <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">Программа</p>
+            <h2 className="font-display text-4xl md:text-5xl mb-4">Маршрут по дням</h2>
             <div className="h-px w-24 gold-line mx-auto" />
           </div>
-          <div className="rounded-2xl border border-border overflow-hidden bg-card">
-            {schedule.map((s, i) => (
-              <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 p-5 sm:px-7 border-b border-border last:border-0 hover:bg-secondary/40 transition-colors">
-                <div className="flex items-center gap-2 w-32 shrink-0">
-                  <Icon name="CalendarDays" size={18} className="text-accent" />
-                  <span className="font-semibold">{s.date}</span>
+          <div className="space-y-5">
+            {days.map((d) => (
+              <div key={d.day} className="flex flex-col sm:flex-row gap-5 p-6 rounded-2xl bg-card border border-border shadow-sm">
+                <div className="flex sm:flex-col items-center sm:items-start gap-3 sm:w-36 shrink-0">
+                  <span className="grid place-items-center w-11 h-11 rounded-full bg-accent text-accent-foreground">
+                    <Icon name={d.icon} size={20} />
+                  </span>
+                  <span className="font-semibold text-primary">{d.day}</span>
                 </div>
-                <div className="flex-1">
-                  <p className="font-display text-xl">{s.route}</p>
-                  <p className="text-sm text-muted-foreground">{s.days}</p>
+                <div>
+                  <h3 className="font-display text-2xl">{d.title}</h3>
+                  <p className="text-sm text-primary mb-2">{d.sub}</p>
+                  <p className="text-muted-foreground leading-relaxed">{d.desc}</p>
                 </div>
-                <span className="text-sm text-primary">{s.seats}</span>
-                <Button size="sm" onClick={() => go('booking')} className="bg-accent hover:bg-accent/90 text-accent-foreground sm:ml-4">
-                  Записаться
-                </Button>
               </div>
             ))}
           </div>
@@ -260,7 +244,7 @@ const Index = () => {
                 ['MapPin', 'Отправление от станции метро в центре Москвы'],
                 ['Clock', 'Сбор группы за 30 минут до выезда'],
                 ['Backpack', 'Удобная одежда и обувь, головной убор для женщин'],
-                ['Utensils', 'Питание включено в стоимость поездки'],
+                ['Utensils', 'Питание и проживание включены в стоимость'],
               ].map(([icon, text]) => (
                 <li key={text} className="flex gap-3 text-muted-foreground">
                   <Icon name={icon} size={20} className="text-accent shrink-0 mt-0.5" />
@@ -272,17 +256,33 @@ const Index = () => {
 
           <div id="booking" className="lg:col-span-2 rounded-2xl bg-card border border-border p-8 md:p-10 shadow-sm">
             <h3 className="font-display text-3xl mb-2">Запись на паломничество</h3>
-            <p className="text-muted-foreground mb-7">Оставьте контакты — мы свяжемся с вами и подберём поездку.</p>
-            <form className="grid sm:grid-cols-2 gap-4" onSubmit={(e) => e.preventDefault()}>
-              <input className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Ваше имя" />
-              <input className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Телефон" />
-              <select className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring sm:col-span-2 text-foreground">
-                <option>Выберите маршрут</option>
-                {routes.map((r) => <option key={r.name}>{r.name}</option>)}
-              </select>
-              <textarea rows={3} className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring sm:col-span-2 resize-none" placeholder="Комментарий" />
-              <Button type="submit" size="lg" className="sm:col-span-2 bg-accent hover:bg-accent/90 text-accent-foreground">
-                Отправить заявку
+            <p className="text-muted-foreground mb-7">Оставьте контакты — мы свяжемся с вами и расскажем о ближайшем выезде.</p>
+            <form className="grid sm:grid-cols-2 gap-4" onSubmit={submit}>
+              <input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
+                placeholder="Ваше имя"
+              />
+              <input
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
+                placeholder="Телефон"
+              />
+              <div className="sm:col-span-2 flex items-center gap-2 px-4 py-3 rounded-lg bg-secondary/60 text-sm text-muted-foreground">
+                <Icon name="MapPin" size={16} className="text-accent" />
+                {ROUTE_NAME}
+              </div>
+              <textarea
+                value={form.comment}
+                onChange={(e) => setForm({ ...form, comment: e.target.value })}
+                rows={3}
+                className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring sm:col-span-2 resize-none"
+                placeholder="Комментарий (необязательно)"
+              />
+              <Button type="submit" size="lg" disabled={sending} className="sm:col-span-2 bg-accent hover:bg-accent/90 text-accent-foreground">
+                {sending ? 'Отправляем...' : 'Отправить заявку'}
               </Button>
             </form>
           </div>
@@ -299,7 +299,7 @@ const Index = () => {
               </span>
               <span className="font-display text-xl">Путь Паломника</span>
             </div>
-            <p className="text-background/70 text-sm leading-relaxed">Паломнические поездки к святыням Русского Севера из Москвы.</p>
+            <p className="text-background/70 text-sm leading-relaxed">5-дневное паломничество к святыням Русского Севера из Москвы.</p>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Контакты</h4>
@@ -315,6 +315,7 @@ const Index = () => {
               {nav.slice(0, 4).map((n) => (
                 <li key={n.id}><button onClick={() => go(n.id)} className="hover:text-background">{n.label}</button></li>
               ))}
+              <li><Link to="/admin" className="hover:text-background inline-flex items-center gap-1"><Icon name="Lock" size={14} /> Кабинет администратора</Link></li>
             </ul>
           </div>
         </div>
