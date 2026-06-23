@@ -4,10 +4,26 @@ import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { APPLICATIONS_URL, type Application } from '@/lib/api';
 
+const ADMIN_PASSWORD = 'alena2011';
+
 const Admin = () => {
+  const [auth, setAuth] = useState(() => sessionStorage.getItem('admin_auth') === '1');
+  const [pwInput, setPwInput] = useState('');
+  const [pwError, setPwError] = useState(false);
   const [items, setItems] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const login = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pwInput === ADMIN_PASSWORD) {
+      sessionStorage.setItem('admin_auth', '1');
+      setAuth(true);
+    } else {
+      setPwError(true);
+      setPwInput('');
+    }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -25,8 +41,8 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    if (auth) load();
+  }, [auth]);
 
   const exportCsv = () => {
     const header = ['Дата заявки', 'Имя', 'Телефон', 'Маршрут', 'Дата выезда', 'Комментарий'];
@@ -42,6 +58,34 @@ const Admin = () => {
     a.click();
     URL.revokeObjectURL(url);
   };
+
+  if (!auth) {
+    return (
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+        <form onSubmit={login} className="w-full max-w-sm bg-card border border-border rounded-2xl p-8 shadow-sm">
+          <div className="flex justify-center mb-6">
+            <span className="grid place-items-center w-14 h-14 rounded-full bg-accent text-accent-foreground">
+              <Icon name="Lock" size={24} />
+            </span>
+          </div>
+          <h1 className="font-display text-3xl text-center mb-1">Кабинет администратора</h1>
+          <p className="text-muted-foreground text-center text-sm mb-7">Введите пароль для доступа</p>
+          <input
+            type="password"
+            value={pwInput}
+            onChange={(e) => { setPwInput(e.target.value); setPwError(false); }}
+            className={`w-full px-4 py-3 rounded-lg bg-background border focus:outline-none focus:ring-2 focus:ring-ring mb-2 ${pwError ? 'border-destructive' : 'border-input'}`}
+            placeholder="Пароль"
+            autoFocus
+          />
+          {pwError && <p className="text-destructive text-sm mb-3">Неверный пароль</p>}
+          <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground mt-2">
+            Войти
+          </Button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
