@@ -16,7 +16,7 @@ const Admin = () => {
 
   const login = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pwInput === ADMIN_PASSWORD) {
+    if (pwInput.trim() === ADMIN_PASSWORD) {
       sessionStorage.setItem('admin_auth', '1');
       setAuth(true);
     } else {
@@ -76,6 +76,10 @@ const Admin = () => {
             onChange={(e) => { setPwInput(e.target.value); setPwError(false); }}
             className={`w-full px-4 py-3 rounded-lg bg-background border focus:outline-none focus:ring-2 focus:ring-ring mb-2 ${pwError ? 'border-destructive' : 'border-input'}`}
             placeholder="Пароль"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
             autoFocus
           />
           {pwError && <p className="text-destructive text-sm mb-3">Неверный пароль</p>}
