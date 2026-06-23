@@ -29,8 +29,8 @@ const Admin = () => {
   }, []);
 
   const exportCsv = () => {
-    const header = ['Дата', 'Имя', 'Телефон', 'Маршрут', 'Комментарий'];
-    const rows = items.map((i) => [i.created_at, i.name, i.phone, i.route, i.comment]);
+    const header = ['Дата заявки', 'Имя', 'Телефон', 'Маршрут', 'Дата выезда', 'Комментарий'];
+    const rows = items.map((i) => [i.created_at, i.name, i.phone, i.route, i.travel_date || '', i.comment]);
     const csv = [header, ...rows]
       .map((r) => r.map((c) => `"${(c || '').replace(/"/g, '""')}"`).join(';'))
       .join('\n');
@@ -97,10 +97,11 @@ const Admin = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-secondary/60 text-left">
-                    <th className="px-5 py-4 font-semibold whitespace-nowrap">Дата</th>
+                    <th className="px-5 py-4 font-semibold whitespace-nowrap">Заявка</th>
                     <th className="px-5 py-4 font-semibold">Имя</th>
                     <th className="px-5 py-4 font-semibold whitespace-nowrap">Телефон</th>
                     <th className="px-5 py-4 font-semibold">Маршрут</th>
+                    <th className="px-5 py-4 font-semibold whitespace-nowrap">Дата выезда</th>
                     <th className="px-5 py-4 font-semibold">Комментарий</th>
                   </tr>
                 </thead>
@@ -113,6 +114,7 @@ const Admin = () => {
                         <a href={`tel:${i.phone}`} className="text-accent hover:underline">{i.phone}</a>
                       </td>
                       <td className="px-5 py-4 text-muted-foreground">{i.route}</td>
+                      <td className="px-5 py-4 whitespace-nowrap font-medium text-primary">{i.travel_date || '—'}</td>
                       <td className="px-5 py-4 text-muted-foreground max-w-xs">{i.comment || '—'}</td>
                     </tr>
                   ))}

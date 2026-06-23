@@ -1,0 +1,1 @@
+ALTER TABLE applications ADD COLUMN IF NOT EXISTS travel_date VARCHAR(50);

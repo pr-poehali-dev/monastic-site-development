@@ -5,6 +5,7 @@ export interface Application {
   name: string;
   phone: string;
   route: string;
+  travel_date: string;
   comment: string;
   created_at: string;
 }

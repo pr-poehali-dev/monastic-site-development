@@ -25,6 +25,7 @@ def handler(event: dict, context) -> dict:
         phone = (body.get('phone') or '').strip()
         route = (body.get('route') or '').strip()
         comment = (body.get('comment') or '').strip()
+        travel_date = (body.get('travel_date') or '').strip()
 
         if not name or not phone:
             cur.close()
@@ -39,10 +40,11 @@ def handler(event: dict, context) -> dict:
         phone = phone.replace("'", "''")
         route = route.replace("'", "''")
         comment = comment.replace("'", "''")
+        travel_date = travel_date.replace("'", "''")
 
         cur.execute(
-            "INSERT INTO applications (name, phone, route, comment) "
-            f"VALUES ('{name}', '{phone}', '{route}', '{comment}') RETURNING id"
+            "INSERT INTO applications (name, phone, route, comment, travel_date) "
+            f"VALUES ('{name}', '{phone}', '{route}', '{comment}', '{travel_date}') RETURNING id"
         )
         new_id = cur.fetchone()[0]
         conn.commit()
@@ -55,7 +57,7 @@ def handler(event: dict, context) -> dict:
         }
 
     cur.execute(
-        "SELECT id, name, phone, route, comment, "
+        "SELECT id, name, phone, route, travel_date, comment, "
         "to_char(created_at, 'DD.MM.YYYY HH24:MI') "
         "FROM applications ORDER BY created_at DESC"
     )
@@ -69,8 +71,9 @@ def handler(event: dict, context) -> dict:
             'name': r[1],
             'phone': r[2],
             'route': r[3],
-            'comment': r[4],
-            'created_at': r[5],
+            'travel_date': r[4] or '—',
+            'comment': r[5],
+            'created_at': r[6],
         }
         for r in rows
     ]

@@ -75,7 +75,7 @@ const Index = () => {
   const [menu, setMenu] = useState(false);
   const [sending, setSending] = useState(false);
   const [activeTour, setActiveTour] = useState(0);
-  const [form, setForm] = useState({ name: '', phone: '', comment: '' });
+  const [form, setForm] = useState({ name: '', phone: '', date: '', comment: '' });
 
   const tour = TOURS[activeTour];
 
@@ -100,11 +100,11 @@ const Index = () => {
       const res = await fetch(APPLICATIONS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, route: tour.heroTitle }),
+        body: JSON.stringify({ ...form, route: tour.heroTitle, travel_date: form.date }),
       });
       if (!res.ok) throw new Error();
       toast({ title: 'Заявка отправлена!', description: 'Мы свяжемся с вами в ближайшее время.' });
-      setForm({ name: '', phone: '', comment: '' });
+      setForm({ name: '', phone: '', date: '', comment: '' });
     } catch {
       toast({ title: 'Не удалось отправить заявку', description: 'Попробуйте ещё раз позже.', variant: 'destructive' });
     } finally {
@@ -358,11 +358,21 @@ const Index = () => {
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
                 className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
-                placeholder="Телефон"
+                placeholder="Телефон (МАХ +79085144500)"
               />
               <div className="sm:col-span-2 flex items-center gap-2 px-4 py-3 rounded-lg bg-secondary/60 text-sm text-muted-foreground">
                 <Icon name="MapPin" size={16} className="text-accent" />
                 {tour.heroTitle}
+              </div>
+              <div className="sm:col-span-2">
+                <label className="block text-sm text-muted-foreground mb-1.5">Желаемая дата выезда</label>
+                <input
+                  type="date"
+                  value={form.date}
+                  onChange={(e) => setForm({ ...form, date: e.target.value })}
+                  min={new Date().toISOString().split('T')[0]}
+                  className="w-full px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
+                />
               </div>
               <textarea
                 value={form.comment}
@@ -394,8 +404,8 @@ const Index = () => {
           <div>
             <h4 className="font-semibold mb-4">Контакты</h4>
             <ul className="space-y-2 text-background/70 text-sm">
-              <li className="flex items-center gap-2"><Icon name="Phone" size={16} /> +7 (000) 000-00-00</li>
-              <li className="flex items-center gap-2"><Icon name="Mail" size={16} /> info@put-palomnika.ru</li>
+              <li className="flex items-center gap-2"><Icon name="Phone" size={16} /><a href="tel:+79085144500" className="hover:text-background">+7 (908) 514-45-00</a></li>
+              <li className="flex items-center gap-2"><Icon name="Mail" size={16} /><a href="mailto:a5144500@inbox.ru" className="hover:text-background">a5144500@inbox.ru</a></li>
               <li className="flex items-center gap-2"><Icon name="MapPin" size={16} /> Москва / Ростов-на-Дону</li>
             </ul>
           </div>
