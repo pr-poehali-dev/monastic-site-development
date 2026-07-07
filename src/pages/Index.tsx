@@ -20,6 +20,7 @@ const TOURS = [
     aboutDesc: 'За пять дней мы посетим четыре великие святыни Русского Севера с заботой о духовной и бытовой стороне поездки.',
     price: '95 000 ₽',
     included: 'Микроавтобус из Москвы, комфортабельная гостиница и все переправы',
+    departureDates: ['11.07.2026', '23.07.2026', '01.08.2026', '23.08.2026'],
     routeCards: [
       ['Church', 'Валаам', '1 день'],
       ['Cross', 'Александро-Свирский', '1 день'],
@@ -44,6 +45,7 @@ const TOURS = [
     aboutDesc: 'За шесть дней мы посетим пять великих святынь: начнём с Монастыря Тихона Задонского и продолжим путь к святыням Русского Севера.',
     price: '108 000 ₽',
     included: 'Микроавтобус из Ростова-на-Дону, комфортабельная гостиница и все переправы',
+    departureDates: ['10.07.2026', '22.07.2026', '31.07.2026'],
     routeCards: [
       ['BookMarked', 'Задонск', '1 день'],
       ['Church', 'Валаам', '1 день'],
@@ -366,13 +368,16 @@ const Index = () => {
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-sm text-muted-foreground mb-1.5">Желаемая дата выезда</label>
-                <input
-                  type="date"
+                <select
                   value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
-                  min={new Date().toISOString().split('T')[0]}
                   className="w-full px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
-                />
+                >
+                  <option value="">Выберите дату</option>
+                  {tour.departureDates.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
               </div>
               <textarea
                 value={form.comment}
