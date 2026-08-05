@@ -20,7 +20,7 @@ const TOURS = [
     aboutDesc: 'За пять дней мы посетим четыре великие святыни Русского Севера с заботой о духовной и бытовой стороне поездки.',
     price: '95 000 ₽',
     included: 'Микроавтобус из Москвы, комфортабельная гостиница и все переправы',
-    departureDates: ['11.07.2026', '23.07.2026', '01.08.2026', '23.08.2026'],
+    departureDates: ['19.08.2026'],
     routeCards: [
       ['Church', 'Валаам', '1 день'],
       ['Cross', 'Александро-Свирский', '1 день'],
@@ -45,7 +45,7 @@ const TOURS = [
     aboutDesc: 'За шесть дней мы посетим пять великих святынь: начнём с Монастыря Тихона Задонского и продолжим путь к святыням Русского Севера.',
     price: '108 000 ₽',
     included: 'Микроавтобус из Ростова-на-Дону, комфортабельная гостиница и все переправы',
-    departureDates: ['10.07.2026', '22.07.2026', '31.07.2026'],
+    departureDates: ['18.08.2026'],
     routeCards: [
       ['BookMarked', 'Задонск', '1 день'],
       ['Church', 'Валаам', '1 день'],
@@ -116,8 +116,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Announcement */}
+      <div className="fixed top-0 inset-x-0 z-[60] bg-accent text-accent-foreground text-sm text-center px-4 py-2.5">
+        21 августа в Соловецком монастыре состоится Богослужение в честь праздника Германа, Зосимы и Савватия
+      </div>
+
       {/* Header */}
-      <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
+      <header className="fixed top-9 md:top-9 inset-x-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
         <div className="container flex items-center justify-between h-16">
           <button onClick={() => go('top')} className="flex items-center gap-2.5">
             <span className="grid place-items-center w-9 h-9 rounded-full bg-accent text-accent-foreground">
@@ -152,7 +157,7 @@ const Index = () => {
       </header>
 
       {/* Hero */}
-      <section id="top" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <section id="top" className="relative min-h-screen flex items-center pt-24 overflow-hidden">
         <img src={VALAAM} alt="Паломничество" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/40 to-foreground/80" />
         <div className="relative container">
