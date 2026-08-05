@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
@@ -98,8 +98,14 @@ const Index = () => {
   const [form, setForm] = useState({ name: '', phone: '', date: '', comment: '' });
   const [showSaintInfo, setShowSaintInfo] = useState(false);
   const [activeSaint, setActiveSaint] = useState(0);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const tour = TOURS[activeTour];
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowWelcome(true), 700);
+    return () => clearTimeout(t);
+  }, []);
 
   const go = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -136,6 +142,30 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {showWelcome && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-foreground/60 backdrop-blur-sm" onClick={() => setShowWelcome(false)}>
+          <div className="bg-card rounded-2xl border border-border shadow-xl max-w-md w-full p-7 md:p-8 relative text-center animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowWelcome(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+              <Icon name="X" size={22} />
+            </button>
+            <span className="grid place-items-center w-14 h-14 rounded-full bg-accent/10 text-accent mb-4 mx-auto">
+              <Icon name="Church" size={26} />
+            </span>
+            <h3 className="font-display text-2xl mb-3">21 августа в Соловецком монастыре</h3>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              Состоится Богослужение в честь праздника Германа, Зосимы и Савватия. Успей забронировать своё путешествие — количество мест ограничено.
+            </p>
+            <Button
+              size="lg"
+              onClick={() => { setShowWelcome(false); go('booking'); }}
+              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+            >
+              Забронировать путешествие
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Announcement */}
       <button
         onClick={() => setShowSaintInfo(true)}
