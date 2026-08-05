@@ -66,14 +66,17 @@ const TOURS = [
 const SAINTS = [
   {
     name: 'Герман Соловецкий',
+    icon: 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/89743034-9fc5-4312-86c5-5b7cbe928873.jpg',
     text: 'Преподобный Герман Соловецкий — один из основателей Соловецкого монастыря. В 1429 году вместе с преподобным Савватием поселился на Соловецких островах, а в 1436 году с преподобным Зосимой основал обитель. Более 40 лет трудился в монастыре, занимаясь хозяйственными делами и духовным наставничеством. Скончался в 1479 году в Новгороде, куда отправился по монастырским делам. Через 5 лет его нетленные мощи были перенесены в Соловецкий монастырь. Прославлен в 1692 году.',
   },
   {
     name: 'Савватий Соловецкий',
+    icon: 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/39f2cd38-7370-489c-8c84-dec099f1b080.jpg',
     text: 'Принял постриг в Кирилло-Белозерском монастыре, затем подвизался на Валааме, но, избегая мирской славы, отправился на необитаемый Соловецкий остров (около 1429 года). Вместе с иноком Германом поселился у Секирной горы, где водрузил крест и поставил келью. Перед кончиной чудесно доплыл до материка, чтобы причаститься, и скончался 27 сентября 1435 года. В 1465 году преподобный Зосима перенёс его мощи на Соловки и положил за алтарём Успенской церкви.',
   },
   {
     name: 'Зосима Соловецкий',
+    icon: 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/31379995-bcd5-4ec4-bdb4-f401b0916a38.jpg',
     text: 'Родился в благочестивой семье в селе Толвуя близ Онежского озера. После смерти родителей раздал имущество и принял постриг. Около 1436 года вместе с Германом поселился на Большом Соловецком острове. Когда на острове стало собираться много отшельников, Зосима устроил для них небольшую деревянную церковь в честь Преображения Господня с трапезной. Ввёл в обители строгое общежитие. В 1465 году перенёс на Соловки мощи преподобного Савватия. Прославился прозорливостью (предсказал казнь новгородских бояр) и чудесами помощи мореплавателям. Также считается покровителем пчеловодства и хранителем пчёл, ему усвоено именование «пчельник».',
   },
 ];
@@ -147,20 +150,23 @@ const Index = () => {
             <button onClick={() => setShowSaintInfo(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
               <Icon name="X" size={22} />
             </button>
-            <span className="grid place-items-center w-12 h-12 rounded-full bg-accent/10 text-accent mb-4">
-              <Icon name="Church" size={22} />
-            </span>
+            <img
+              src={SAINTS[activeSaint].icon}
+              alt={SAINTS[activeSaint].name}
+              className="w-20 h-20 rounded-full object-cover border-2 border-accent mb-4"
+            />
             <div className="flex flex-wrap gap-2 mb-5">
               {SAINTS.map((s, i) => (
                 <button
                   key={s.name}
                   onClick={() => setActiveSaint(i)}
-                  className={`px-3.5 py-1.5 rounded-full text-sm border transition-colors ${
+                  className={`flex items-center gap-2 pl-1.5 pr-3.5 py-1.5 rounded-full text-sm border transition-colors ${
                     activeSaint === i
                       ? 'bg-accent text-accent-foreground border-accent'
                       : 'border-border text-muted-foreground hover:text-foreground'
                   }`}
                 >
+                  <img src={s.icon} alt={s.name} className="w-6 h-6 rounded-full object-cover" />
                   {s.name}
                 </button>
               ))}
