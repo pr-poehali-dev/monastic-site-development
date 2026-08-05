@@ -78,6 +78,7 @@ const Index = () => {
   const [sending, setSending] = useState(false);
   const [activeTour, setActiveTour] = useState(0);
   const [form, setForm] = useState({ name: '', phone: '', date: '', comment: '' });
+  const [showSaintInfo, setShowSaintInfo] = useState(false);
 
   const tour = TOURS[activeTour];
 
@@ -117,9 +118,29 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Announcement */}
-      <div className="fixed top-0 inset-x-0 z-[60] bg-accent text-accent-foreground text-sm text-center px-4 py-2.5">
+      <button
+        onClick={() => setShowSaintInfo(true)}
+        className="fixed top-0 inset-x-0 z-[60] bg-accent text-accent-foreground text-sm text-center px-4 py-2.5 hover:bg-accent/90 transition-colors underline-offset-2 hover:underline"
+      >
         21 августа в Соловецком монастыре состоится Богослужение в честь праздника Германа, Зосимы и Савватия
-      </div>
+      </button>
+
+      {showSaintInfo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-foreground/60 backdrop-blur-sm" onClick={() => setShowSaintInfo(false)}>
+          <div className="bg-card rounded-2xl border border-border shadow-xl max-w-lg w-full p-7 md:p-8 relative animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowSaintInfo(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+              <Icon name="X" size={22} />
+            </button>
+            <span className="grid place-items-center w-12 h-12 rounded-full bg-accent/10 text-accent mb-4">
+              <Icon name="Church" size={22} />
+            </span>
+            <h3 className="font-display text-2xl mb-3">Преподобный Герман Соловецкий</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Преподобный Герман Соловецкий — один из основателей Соловецкого монастыря. В 1429 году вместе с преподобным Савватием поселился на Соловецких островах, а в 1436 году с преподобным Зосимой основал обитель. Более 40 лет трудился в монастыре, занимаясь хозяйственными делами и духовным наставничеством. Скончался в 1479 году в Новгороде, куда отправился по монастырским делам. Через 5 лет его нетленные мощи были перенесены в Соловецкий монастырь. Прославлен в 1692 году.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Header */}
       <header className="fixed top-9 md:top-9 inset-x-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
