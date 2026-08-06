@@ -34,7 +34,7 @@ const WelcomeModals = ({
             </span>
             <h3 className="font-display text-2xl mb-3">21 августа в Соловецком монастыре</h3>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              Состоится Богослужение в честь праздника Германа, Зосимы и Савватия. Успей забронировать своё путешествие — количество мест ограничено.
+              Состоится Богослужение в честь праздника Зосимы, Савватия и Германа. Успей забронировать своё путешествие — количество мест ограничено.
             </p>
             <Button
               size="lg"
@@ -52,7 +52,7 @@ const WelcomeModals = ({
         onClick={() => setShowSaintInfo(true)}
         className="fixed top-0 inset-x-0 z-[60] bg-accent text-accent-foreground text-sm text-center px-4 py-2.5 hover:bg-accent/90 transition-colors underline-offset-2 hover:underline"
       >
-        21 августа в Соловецком монастыре состоится Богослужение в честь праздника Германа, Зосимы и Савватия
+        21 августа в Соловецком монастыре состоится Богослужение в честь праздника Зосимы, Савватия и Германа
       </button>
 
       {showSaintInfo && (
