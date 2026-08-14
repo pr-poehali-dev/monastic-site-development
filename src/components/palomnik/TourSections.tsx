@@ -148,18 +148,13 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
             <h2 className="font-display text-4xl md:text-5xl">Образы паломнических дорог</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="relative overflow-hidden rounded-xl group row-span-2 aspect-[3/4]">
+            <div className="relative overflow-hidden rounded-xl row-span-2 aspect-[3/4] bg-foreground">
               <video
                 src={GALLERY_VIDEO}
-                autoPlay
-                loop
-                muted
+                controls
                 playsInline
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                className="w-full h-full object-cover"
               />
-              <span className="absolute top-3 right-3 grid place-items-center w-9 h-9 rounded-full bg-foreground/50 text-background backdrop-blur-sm">
-                <Icon name="Play" size={16} />
-              </span>
             </div>
             {GALLERY.map((img, i) => (
               <div key={i} className={`overflow-hidden rounded-xl group ${i % 3 === 1 ? 'row-span-2 aspect-[3/4]' : 'aspect-square'}`}>
