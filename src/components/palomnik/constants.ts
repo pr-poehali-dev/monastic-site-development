@@ -1,6 +1,8 @@
 export const VALAAM = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/761cb0a6-5cc4-47d4-834a-4b149ae91476.jpg';
 export const SOLOVKI = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/b871d7c9-74b7-4e99-ab2f-574aa7f5035f.jpg';
 
+export const GALLERY_VIDEO = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/bucket/b1fc03ec-6968-4097-9569-f5508229c951.mp4';
+
 export const GALLERY = [
   'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/bucket/523a0df6-ddaf-477e-8e30-941c610639fe.jpg',
   'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/bucket/ff091132-354b-4a2d-8f2d-ce3e471a8e1f.jpg',
