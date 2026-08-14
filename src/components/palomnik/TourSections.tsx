@@ -1,5 +1,5 @@
 import Icon from '@/components/ui/icon';
-import { TOURS, SOLOVKI, VALAAM, Tour } from '@/components/palomnik/constants';
+import { TOURS, SOLOVKI, GALLERY, Tour } from '@/components/palomnik/constants';
 
 interface TourSectionsProps {
   activeTour: number;
@@ -148,7 +148,7 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
             <h2 className="font-display text-4xl md:text-5xl">Образы паломнических дорог</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[VALAAM, SOLOVKI, VALAAM, SOLOVKI].map((img, i) => (
+            {GALLERY.map((img, i) => (
               <div key={i} className={`overflow-hidden rounded-xl group ${i % 3 === 0 ? 'row-span-2 aspect-[3/4]' : 'aspect-square'}`}>
                 <img src={img} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               </div>
