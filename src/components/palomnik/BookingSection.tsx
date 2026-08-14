@@ -11,7 +11,6 @@ interface BookingForm {
 }
 
 interface BookingSectionProps {
-  activeTour: number;
   tour: Tour;
   form: BookingForm;
   setForm: (f: BookingForm) => void;
@@ -20,7 +19,7 @@ interface BookingSectionProps {
   go: (id: string) => void;
 }
 
-const BookingSection = ({ activeTour, tour, form, setForm, sending, submit, go }: BookingSectionProps) => {
+const BookingSection = ({ tour, form, setForm, sending, submit, go }: BookingSectionProps) => {
   return (
     <>
       {/* Info + Booking */}
@@ -31,7 +30,7 @@ const BookingSection = ({ activeTour, tour, form, setForm, sending, submit, go }
             <h2 className="font-display text-4xl mb-6">Практические детали</h2>
             <ul className="space-y-4">
               {[
-                ['MapPin', `Отправление из ${activeTour === 0 ? 'Москвы' : 'Ростова-на-Дону'}`],
+                ['MapPin', `Отправление из ${tour.city}`],
                 ['Clock', 'Сбор группы за 30 минут до выезда'],
                 ['Backpack', 'Удобная одежда и обувь, головной убор для женщин'],
                 ['Hotel', 'Проживание в комфортабельной гостинице включено в стоимость'],

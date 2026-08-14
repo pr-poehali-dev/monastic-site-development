@@ -74,7 +74,6 @@ const Index = () => {
       <TourSections activeTour={activeTour} switchTour={switchTour} tour={tour} />
 
       <BookingSection
-        activeTour={activeTour}
         tour={tour}
         form={form}
         setForm={setForm}

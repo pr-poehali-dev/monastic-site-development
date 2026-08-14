@@ -15,9 +15,9 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
         <div className="container">
           <div className="text-center mb-8">
             <p className="text-sm uppercase tracking-[0.3em] text-primary mb-2">Выберите тур</p>
-            <h2 className="font-display text-3xl md:text-4xl">Два маршрута паломничества</h2>
+            <h2 className="font-display text-3xl md:text-4xl">Маршруты паломничества</h2>
           </div>
-          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
             {TOURS.map((t, idx) => (
               <button
                 key={t.id}
@@ -37,7 +37,7 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
                   </span>
                 </div>
                 <h3 className="font-display text-xl mb-1">{t.heroTitle}</h3>
-                <p className="text-sm text-muted-foreground">{t.routeCards.length} святыни · {t.price}</p>
+                <p className="text-sm text-muted-foreground">{t.aboutBadge} · {t.price}</p>
               </button>
             ))}
           </div>
@@ -94,7 +94,7 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
             <div className="space-y-5">
               {[
                 { icon: 'BookOpen', t: 'Духовное сопровождение', d: 'Беседы, молебны и участие в богослужениях вместе с группой.' },
-                { icon: 'Bus', t: 'Комфортабельный микроавтобус', d: `Выезд из ${activeTour === 0 ? 'Москвы' : 'Ростова-на-Дону'} на комфортабельном микроавтобусе, все переправы организованы заранее.` },
+                { icon: 'Bus', t: 'Комфортабельный микроавтобус', d: `Выезд из ${tour.city} на комфортабельном микроавтобусе, все переправы организованы заранее.` },
                 { icon: 'HeartHandshake', t: 'Забота о каждом', d: 'Опытные сопровождающие рядом на всём пути следования.' },
               ].map((f) => (
                 <div key={f.t} className="flex gap-4">
