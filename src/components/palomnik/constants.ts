@@ -1,3 +1,5 @@
+export const SHUYA_IMAGE = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/bucket/27e18081-701b-47ff-89c9-05e72ab7731a.jpg';
+
 export const VALAAM = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/761cb0a6-5cc4-47d4-834a-4b149ae91476.jpg';
 export const SOLOVKI = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/b871d7c9-74b7-4e99-ab2f-574aa7f5035f.jpg';
 

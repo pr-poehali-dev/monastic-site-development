@@ -1,6 +1,6 @@
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { SAINTS } from '@/components/palomnik/constants';
+import { SAINTS, SHUYA_IMAGE } from '@/components/palomnik/constants';
 
 interface WelcomeModalsProps {
   showWelcome: boolean;
@@ -25,24 +25,27 @@ const WelcomeModals = ({
     <>
       {showWelcome && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-foreground/60 backdrop-blur-sm" onClick={() => setShowWelcome(false)}>
-          <div className="bg-card rounded-2xl border border-border shadow-xl max-w-md w-full p-7 md:p-8 relative text-center animate-fade-in" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setShowWelcome(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-              <Icon name="X" size={22} />
+          <div className="bg-card rounded-2xl border border-border shadow-xl max-w-lg w-full relative animate-fade-in max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowWelcome(false)} className="absolute top-4 right-4 z-10 grid place-items-center w-8 h-8 rounded-full bg-foreground/50 text-background hover:bg-foreground/70">
+              <Icon name="X" size={18} />
             </button>
-            <span className="grid place-items-center w-14 h-14 rounded-full bg-accent/10 text-accent mb-4 mx-auto">
-              <Icon name="Church" size={26} />
-            </span>
-            <h3 className="font-display text-2xl mb-3">21 августа в Соловецком монастыре</h3>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Состоится Богослужение в честь праздника Зосимы, Савватия и Германа. Успей забронировать своё путешествие — количество мест ограничено.
-            </p>
-            <Button
-              size="lg"
-              onClick={() => { setShowWelcome(false); go('booking'); }}
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-            >
-              Забронировать путешествие
-            </Button>
+            <img src={SHUYA_IMAGE} alt="Старинная Шуя" className="w-full aspect-[4/3] object-cover" />
+            <div className="p-7 md:p-8 text-center">
+              <h3 className="font-display text-2xl mb-3">Путешествие-вдохновение: в старинную Шую и к батюшке — откройте душу России!</h3>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                Трёхдневное путешествие с 3 по 5 сентября в уютную Шую и тихую Старую Южу: колокольня с панорамой города, музей Бальмонта, старейший в России завод ситца, семейная сыроварня, усадьба фабриканта Павлова, дегустация наливок и поездка к батюшке — настоятелю Смоленского храма XVIII века, к чудотворной иконе «Неопалимая Купина».
+              </p>
+              <p className="text-sm text-muted-foreground mb-6">
+                Даты выезда: 3–5 сентября · Стоимость: 16 500 ₽ (2 дня в Шуе) / 21 500 ₽ (3 дня)
+              </p>
+              <Button
+                size="lg"
+                onClick={() => { setShowWelcome(false); go('booking'); }}
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+              >
+                Забронировать путешествие
+              </Button>
+            </div>
           </div>
         </div>
       )}
