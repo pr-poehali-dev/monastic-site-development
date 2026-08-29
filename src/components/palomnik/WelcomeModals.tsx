@@ -10,6 +10,7 @@ interface WelcomeModalsProps {
   activeSaint: number;
   setActiveSaint: (i: number) => void;
   go: (id: string) => void;
+  onSelectShuya: () => void;
 }
 
 const WelcomeModals = ({
@@ -20,6 +21,7 @@ const WelcomeModals = ({
   activeSaint,
   setActiveSaint,
   go,
+  onSelectShuya,
 }: WelcomeModalsProps) => {
   return (
     <>
@@ -40,7 +42,7 @@ const WelcomeModals = ({
               </p>
               <Button
                 size="lg"
-                onClick={() => { setShowWelcome(false); go('booking'); }}
+                onClick={() => { setShowWelcome(false); onSelectShuya(); go('booking'); }}
                 className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
               >
                 Забронировать путешествие

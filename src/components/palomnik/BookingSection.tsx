@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { nav, Tour } from '@/components/palomnik/constants';
+import { nav, BOOKING_ROUTES, Tour } from '@/components/palomnik/constants';
 
 interface BookingForm {
   name: string;
@@ -12,6 +12,9 @@ interface BookingForm {
 
 interface BookingSectionProps {
   tour: Tour;
+  bookingRoute: (typeof BOOKING_ROUTES)[number];
+  routeId: string;
+  setRouteId: (id: string) => void;
   form: BookingForm;
   setForm: (f: BookingForm) => void;
   sending: boolean;
@@ -19,7 +22,7 @@ interface BookingSectionProps {
   go: (id: string) => void;
 }
 
-const BookingSection = ({ tour, form, setForm, sending, submit, go }: BookingSectionProps) => {
+const BookingSection = ({ tour, bookingRoute, routeId, setRouteId, form, setForm, sending, submit, go }: BookingSectionProps) => {
   return (
     <>
       {/* Info + Booking */}
@@ -59,9 +62,17 @@ const BookingSection = ({ tour, form, setForm, sending, submit, go }: BookingSec
                 className="px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
                 placeholder="Телефон (МАХ +79085144500)"
               />
-              <div className="sm:col-span-2 flex items-center gap-2 px-4 py-3 rounded-lg bg-secondary/60 text-sm text-muted-foreground">
-                <Icon name="MapPin" size={16} className="text-accent" />
-                {tour.heroTitle}
+              <div className="sm:col-span-2">
+                <label className="block text-sm text-muted-foreground mb-1.5">Путешествие</label>
+                <select
+                  value={routeId}
+                  onChange={(e) => { setRouteId(e.target.value); setForm({ ...form, date: '' }); }}
+                  className="w-full px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
+                >
+                  {BOOKING_ROUTES.map((r) => (
+                    <option key={r.id} value={r.id}>{r.heroTitle}</option>
+                  ))}
+                </select>
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-sm text-muted-foreground mb-1.5">Желаемая дата выезда</label>
@@ -71,7 +82,7 @@ const BookingSection = ({ tour, form, setForm, sending, submit, go }: BookingSec
                   className="w-full px-4 py-3 rounded-lg bg-background border border-input focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="">Выберите дату</option>
-                  {tour.departureDates.map((d) => (
+                  {bookingRoute.departureDates.map((d) => (
                     <option key={d} value={d}>{d}</option>
                   ))}
                 </select>

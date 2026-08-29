@@ -118,6 +118,16 @@ export const TOURS = [
   },
 ];
 
+export const SHUYA_ROUTE = {
+  id: 'shuya',
+  label: 'Выходного дня · Шуя',
+  heroTitle: 'Путешествие-вдохновение: в старинную Шую и к батюшке',
+  city: 'Москвы',
+  departureDates: ['03.09.2026'],
+};
+
+export const BOOKING_ROUTES = [...TOURS, SHUYA_ROUTE];
+
 export const SAINTS = [
   {
     name: 'Герман Соловецкий',

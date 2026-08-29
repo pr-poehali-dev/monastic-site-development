@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { APPLICATIONS_URL } from '@/lib/api';
-import { TOURS } from '@/components/palomnik/constants';
+import { TOURS, SHUYA_ROUTE, BOOKING_ROUTES } from '@/components/palomnik/constants';
 import WelcomeModals from '@/components/palomnik/WelcomeModals';
 import SiteHeader from '@/components/palomnik/SiteHeader';
 import TourSections from '@/components/palomnik/TourSections';
@@ -13,11 +13,13 @@ const Index = () => {
   const [sending, setSending] = useState(false);
   const [activeTour, setActiveTour] = useState(0);
   const [form, setForm] = useState({ name: '', phone: '', date: '', comment: '' });
+  const [routeId, setRouteId] = useState(TOURS[0].id);
   const [showSaintInfo, setShowSaintInfo] = useState(false);
   const [activeSaint, setActiveSaint] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
 
   const tour = TOURS[activeTour];
+  const bookingRoute = BOOKING_ROUTES.find((r) => r.id === routeId) || tour;
 
   useEffect(() => {
     const t = setTimeout(() => setShowWelcome(true), 700);
@@ -31,6 +33,7 @@ const Index = () => {
 
   const switchTour = (idx: number) => {
     setActiveTour(idx);
+    setRouteId(TOURS[idx].id);
     setTimeout(() => document.getElementById('top')?.scrollIntoView({ behavior: 'smooth' }), 50);
   };
 
@@ -45,7 +48,7 @@ const Index = () => {
       const res = await fetch(APPLICATIONS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, route: tour.heroTitle, travel_date: form.date }),
+        body: JSON.stringify({ ...form, route: bookingRoute.heroTitle, travel_date: form.date }),
       });
       if (!res.ok) throw new Error();
       toast({ title: 'Заявка отправлена!', description: 'Мы свяжемся с вами в ближайшее время.' });
@@ -67,6 +70,7 @@ const Index = () => {
         activeSaint={activeSaint}
         setActiveSaint={setActiveSaint}
         go={go}
+        onSelectShuya={() => { setRouteId(SHUYA_ROUTE.id); setForm((f) => ({ ...f, date: SHUYA_ROUTE.departureDates[0] })); }}
       />
 
       <SiteHeader menu={menu} setMenu={setMenu} go={go} tour={tour} />
@@ -75,6 +79,9 @@ const Index = () => {
 
       <BookingSection
         tour={tour}
+        bookingRoute={bookingRoute}
+        routeId={routeId}
+        setRouteId={setRouteId}
         form={form}
         setForm={setForm}
         sending={sending}
