@@ -95,6 +95,24 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
                 <p className="text-sm text-muted-foreground">Включено: {tour.included}</p>
               </div>
             </div>
+            <div className="mb-8 p-5 rounded-xl bg-card border border-border">
+              <h4 className="font-display text-2xl mb-4">Что входит в стоимость</h4>
+              <ul className="grid sm:grid-cols-2 gap-3">
+                {[
+                  ['Bus', 'Проезд'],
+                  ['Hotel', 'Проживание'],
+                  ['Landmark', 'Экскурсии'],
+                  ['Utensils', tour.id === 'winter' ? 'Питание частично' : 'Питание'],
+                ].map(([icon, text]) => (
+                  <li key={text} className="flex items-center gap-3 text-muted-foreground">
+                    <span className="grid place-items-center w-9 h-9 rounded-full bg-accent/10 text-accent shrink-0">
+                      <Icon name={icon} size={18} />
+                    </span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="space-y-5">
               {[
                 { icon: 'BookOpen', t: 'Духовное сопровождение', d: 'Беседы, молебны и участие в богослужениях вместе с группой.' },
