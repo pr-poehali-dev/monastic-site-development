@@ -38,6 +38,10 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
                 </div>
                 <h3 className="font-display text-xl mb-1">{t.heroTitle}</h3>
                 <p className="text-sm text-muted-foreground">{t.aboutBadge} · {t.price}</p>
+                <p className="flex items-center gap-1.5 text-xs font-semibold text-accent mt-2">
+                  <Icon name="CalendarDays" size={14} />
+                  {t.id === 'winter' ? 'Ноябрь 2026 – март 2027' : 'Июнь – сентябрь 2027'}
+                </p>
               </button>
             ))}
           </div>
