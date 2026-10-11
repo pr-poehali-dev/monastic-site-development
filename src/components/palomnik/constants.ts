@@ -160,15 +160,7 @@ export const TOURS = [
   },
 ];
 
-export const SHUYA_ROUTE = {
-  id: 'shuya',
-  label: 'Выходного дня · Шуя',
-  heroTitle: 'Путешествие-вдохновение: в старинную Шую и к батюшке',
-  city: 'Москвы',
-  departureDates: DATES_2027,
-};
-
-export const BOOKING_ROUTES = [...TOURS, SHUYA_ROUTE];
+export const BOOKING_ROUTES = TOURS;
 
 export const SAINTS = [
   {
@@ -190,6 +182,7 @@ export const SAINTS = [
 
 export const nav = [
   { id: 'tours', label: 'Туры' },
+  { id: 'winter', label: 'Зимний маршрут' },
   { id: 'about', label: 'О паломничестве' },
   { id: 'program', label: 'Программа' },
   { id: 'gallery', label: 'Галерея' },

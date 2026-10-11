@@ -1,6 +1,6 @@
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { nav, VALAAM, Tour } from '@/components/palomnik/constants';
+import { nav, VALAAM, WINTER_IMAGE, Tour } from '@/components/palomnik/constants';
 
 interface SiteHeaderProps {
   menu: boolean;
@@ -49,7 +49,7 @@ const SiteHeader = ({ menu, setMenu, go, tour }: SiteHeaderProps) => {
 
       {/* Hero */}
       <section id="top" className="relative min-h-screen flex items-center pt-24 overflow-hidden">
-        <img src={VALAAM} alt="Паломничество" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={tour.id === 'winter' ? WINTER_IMAGE : VALAAM} alt="Паломничество" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/70 via-foreground/40 to-foreground/80" />
         <div className="relative container">
           <div className="max-w-2xl text-background animate-fade-up">

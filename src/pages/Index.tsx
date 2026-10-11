@@ -6,6 +6,7 @@ import WelcomeModals from '@/components/palomnik/WelcomeModals';
 import RecruitmentBanner from '@/components/palomnik/RecruitmentBanner';
 import SiteHeader from '@/components/palomnik/SiteHeader';
 import TourSections from '@/components/palomnik/TourSections';
+import WinterSection from '@/components/palomnik/WinterSection';
 import BookingSection from '@/components/palomnik/BookingSection';
 
 const Index = () => {
@@ -82,6 +83,8 @@ const Index = () => {
       <RecruitmentBanner go={go} />
 
       <TourSections activeTour={activeTour} switchTour={switchTour} tour={tour} />
+
+      <WinterSection onBook={() => { setRouteId('winter'); setForm((f) => ({ ...f, date: '' })); go('booking'); }} />
 
       <BookingSection
         tour={tour}

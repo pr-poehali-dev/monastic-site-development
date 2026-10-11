@@ -1,5 +1,5 @@
 import Icon from '@/components/ui/icon';
-import { TOURS, SOLOVKI, GALLERY, GALLERY_VIDEO, Tour } from '@/components/palomnik/constants';
+import { TOURS, SOLOVKI, GALLERY, GALLERY_VIDEO, WINTER_IMAGE, Tour } from '@/components/palomnik/constants';
 
 interface TourSectionsProps {
   activeTour: number;
@@ -70,7 +70,7 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
       <section id="about" className="py-24 bg-secondary/40">
         <div className="container grid lg:grid-cols-2 gap-14 items-center">
           <div className="relative">
-            <img src={SOLOVKI} alt="Паломничество" className="rounded-2xl w-full object-cover aspect-[4/5] shadow-lg" />
+            <img src={tour.id === 'winter' ? WINTER_IMAGE : SOLOVKI} alt="Паломничество" className="rounded-2xl w-full object-cover aspect-[4/5] shadow-lg" />
             <div className="absolute -bottom-6 -right-6 hidden md:block bg-accent text-accent-foreground p-6 rounded-2xl shadow-xl">
               <p className="font-display text-4xl">{tour.aboutBadge}</p>
               <p className="text-sm opacity-90">единого пути</p>
