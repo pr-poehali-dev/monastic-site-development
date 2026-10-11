@@ -78,7 +78,12 @@ const BookingSection = ({ tour, bookingRoute, routeId, setRouteId, form, setForm
                 Если у вас уже есть группа, которая хотела бы поехать в это паломничество и ждать не хочется, мы готовы предложить вам любые удобные для вас даты — напишите об этом в комментарии.
               </p>
               <div className="sm:col-span-2">
-                <label className="block text-sm text-muted-foreground mb-1.5">Желаемая дата выезда</label>
+                <label className="flex flex-wrap items-center justify-between gap-2 text-sm text-muted-foreground mb-1.5">
+                  <span>Желаемая дата выезда</span>
+                  <span className="text-xs font-semibold text-accent">
+                    Сезон: {routeId === 'winter' ? 'Ноябрь 2026 – март 2027' : 'Июнь – сентябрь 2027'}
+                  </span>
+                </label>
                 <select
                   value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
