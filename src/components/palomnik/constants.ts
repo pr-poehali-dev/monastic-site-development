@@ -11,10 +11,14 @@ export const WINTER_DATES = [
   '12.03.2027 — из Ростова-на-Дону',
 ];
 
-export const DATES_2027 = [6, 7, 8, 9, 10, 11, 12].flatMap((m) => {
+const makeDates = (months: number[]) => months.flatMap((m) => {
   const mm = String(m).padStart(2, '0');
   return [`06.${mm}.2027`, `20.${mm}.2027`];
 });
+
+export const DATES_2027 = makeDates([6, 7, 8, 9, 10, 11, 12]);
+
+export const DATES_NORTH_2027 = makeDates([6, 7, 8, 9]);
 
 export const VALAAM = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/761cb0a6-5cc4-47d4-834a-4b149ae91476.jpg';
 export const SOLOVKI = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/b871d7c9-74b7-4e99-ab2f-574aa7f5035f.jpg';
@@ -44,7 +48,7 @@ export const TOURS = [
     aboutDesc: 'За пять дней мы посетим четыре великие святыни Русского Севера с заботой о духовной и бытовой стороне поездки.',
     price: '96 000 ₽',
     included: 'Микроавтобус из Москвы, комфортабельная гостиница и все переправы',
-    departureDates: DATES_2027,
+    departureDates: DATES_NORTH_2027,
     routeCards: [
       ['Church', 'Валаам', '1 день'],
       ['Cross', 'Александро-Свирский', '1 день'],
@@ -70,7 +74,7 @@ export const TOURS = [
     aboutDesc: 'За шесть дней мы посетим пять великих святынь: начнём с Монастыря Тихона Задонского и продолжим путь к святыням Русского Севера.',
     price: '106 000 ₽',
     included: 'Микроавтобус из Ростова-на-Дону, комфортабельная гостиница и все переправы',
-    departureDates: DATES_2027,
+    departureDates: DATES_NORTH_2027,
     routeCards: [
       ['BookMarked', 'Задонск', '1 день'],
       ['Church', 'Валаам', '1 день'],
