@@ -74,6 +74,9 @@ const BookingSection = ({ tour, bookingRoute, routeId, setRouteId, form, setForm
                   ))}
                 </select>
               </div>
+              <p className="sm:col-span-2 text-sm text-muted-foreground bg-accent/10 border border-accent/20 rounded-lg p-4">
+                Если у вас уже есть группа, которая хотела бы поехать в это паломничество и ждать не хочется, мы готовы предложить вам любые удобные для вас даты — напишите об этом в комментарии.
+              </p>
               <div className="sm:col-span-2">
                 <label className="block text-sm text-muted-foreground mb-1.5">Желаемая дата выезда</label>
                 <select

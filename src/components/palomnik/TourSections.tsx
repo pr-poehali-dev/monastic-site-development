@@ -17,7 +17,7 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
             <p className="text-sm uppercase tracking-[0.3em] text-primary mb-2">Выберите тур</p>
             <h2 className="font-display text-3xl md:text-4xl">Маршруты паломничества</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
             {TOURS.map((t, idx) => (
               <button
                 key={t.id}

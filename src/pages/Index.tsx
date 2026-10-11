@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { APPLICATIONS_URL } from '@/lib/api';
-import { TOURS, SHUYA_ROUTE, BOOKING_ROUTES } from '@/components/palomnik/constants';
+import { TOURS, BOOKING_ROUTES } from '@/components/palomnik/constants';
 import WelcomeModals from '@/components/palomnik/WelcomeModals';
+import RecruitmentBanner from '@/components/palomnik/RecruitmentBanner';
 import SiteHeader from '@/components/palomnik/SiteHeader';
 import TourSections from '@/components/palomnik/TourSections';
 import BookingSection from '@/components/palomnik/BookingSection';
@@ -17,6 +18,7 @@ const Index = () => {
   const [showSaintInfo, setShowSaintInfo] = useState(false);
   const [activeSaint, setActiveSaint] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showWinter, setShowWinter] = useState(false);
 
   const tour = TOURS[activeTour];
   const bookingRoute = BOOKING_ROUTES.find((r) => r.id === routeId) || tour;
@@ -70,10 +72,14 @@ const Index = () => {
         activeSaint={activeSaint}
         setActiveSaint={setActiveSaint}
         go={go}
-        onSelectShuya={() => { setRouteId(SHUYA_ROUTE.id); setForm((f) => ({ ...f, date: SHUYA_ROUTE.departureDates[0] })); }}
+        showWinter={showWinter}
+        setShowWinter={setShowWinter}
+        onSelectWinter={() => { setRouteId('winter'); setForm((f) => ({ ...f, date: '' })); }}
       />
 
       <SiteHeader menu={menu} setMenu={setMenu} go={go} tour={tour} />
+
+      <RecruitmentBanner go={go} />
 
       <TourSections activeTour={activeTour} switchTour={switchTour} tour={tour} />
 
