@@ -41,7 +41,7 @@ const WinterSection = ({ onBook }: WinterSectionProps) => {
                 ['Bus', 'Проезд на комфортабельном микроавтобусе из Москвы или Ростова-на-Дону'],
                 ['Hotel', 'Проживание в тёплой гостинице'],
                 ['BookOpen', 'Экскурсии и духовное сопровождение на всём пути'],
-                ['Utensils', 'Питание частично'],
+                ['Utensils', 'Питание частично: завтрак и обед в день экскурсии'],
                 ['CalendarDays', 'Выезды раз в месяц из Москвы и Ростова-на-Дону'],
               ].map(([icon, text]) => (
                 <li key={text} className="flex gap-3 text-muted-foreground">
