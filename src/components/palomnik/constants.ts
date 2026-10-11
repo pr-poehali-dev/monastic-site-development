@@ -1,6 +1,8 @@
 export const WINTER_IMAGE = 'https://cdn.poehali.dev/projects/45b176e1-57ac-40bf-8364-b89cd4048930/files/f53fde9d-b010-4426-b784-901e34d125b5.jpg';
 
 export const WINTER_DATES = [
+  '14.11.2026 — из Москвы',
+  '13.11.2026 — из Ростова-на-Дону',
   '12.12.2026 — из Москвы',
   '11.12.2026 — из Ростова-на-Дону',
   '16.01.2027 — из Москвы',
