@@ -72,7 +72,7 @@ const WelcomeModals = ({
               <p className="text-muted-foreground leading-relaxed mb-4">
                 Монастырь Тихона Задонского, Великий Новгород, Тихвинский Богородичный Успенский монастырь и Свято-Троицкий Александро-Свирский монастырь.
               </p>
-              <p className="font-semibold mb-1">45 000 ₽ из Москвы · 55 000 ₽ из Ростова-на-Дону</p>
+              <p className="font-semibold mb-1">65 000 ₽ из Москвы · 75 000 ₽ из Ростова-на-Дону</p>
               <p className="text-sm text-muted-foreground mb-4">Выезды раз в месяц из Москвы и Ростова-на-Дону</p>
               <p className="text-sm text-muted-foreground bg-accent/10 border border-accent/20 rounded-xl p-4 mb-6">
                 Если у вас уже есть группа, которая хотела бы поехать в это паломничество и ждать не хочется, мы готовы предложить вам любые удобные для вас даты.

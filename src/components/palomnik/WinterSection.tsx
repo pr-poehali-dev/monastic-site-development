@@ -27,12 +27,12 @@ const WinterSection = ({ onBook }: WinterSectionProps) => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="p-5 rounded-2xl bg-card border border-border text-center">
                 <p className="text-sm text-muted-foreground mb-1">Из Москвы</p>
-                <p className="font-display text-3xl text-accent">45 000 ₽</p>
+                <p className="font-display text-3xl text-accent">65 000 ₽</p>
                 <p className="text-xs text-muted-foreground mt-1">с человека</p>
               </div>
               <div className="p-5 rounded-2xl bg-card border border-border text-center">
                 <p className="text-sm text-muted-foreground mb-1">Из Ростова-на-Дону</p>
-                <p className="font-display text-3xl text-accent">55 000 ₽</p>
+                <p className="font-display text-3xl text-accent">75 000 ₽</p>
                 <p className="text-xs text-muted-foreground mt-1">с человека</p>
               </div>
             </div>
