@@ -102,7 +102,7 @@ const TourSections = ({ activeTour, switchTour, tour }: TourSectionsProps) => {
                   ['Bus', 'Проезд'],
                   ['Hotel', 'Проживание'],
                   ['Landmark', 'Экскурсии'],
-                  ['Utensils', tour.id === 'winter' ? 'Питание частично' : 'Питание'],
+                  ['Utensils', 'Питание частично'],
                 ].map(([icon, text]) => (
                   <li key={text} className="flex items-center gap-3 text-muted-foreground">
                     <span className="grid place-items-center w-9 h-9 rounded-full bg-accent/10 text-accent shrink-0">
